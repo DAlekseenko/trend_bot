@@ -7,7 +7,7 @@
 // Параметры, которые можно настроить в настройках робота
 
 // Основные параметры стратегии
-input double RiskPercent      = 1.5;  // Процент риска от баланса на одну сделку (1% = 1.0)
+input double RiskPercent      = 0.75; // Процент риска от баланса на одну сделку (снижен для уменьшения влияния комиссий)
 input int    EMAPeriod        = 200;  // Период экспоненциальной скользящей средней для определения тренда
 input int    RSIPeriod        = 14;   // Период индикатора RSI для поиска откатов
 input double RR               = 2.0;  // Соотношение риск/прибыль (Risk/Reward). Например, 2.0 означает, что тейк-профит в 2 раза больше стоп-лосса
@@ -17,9 +17,9 @@ input double MaxSpreadPoints  = 30;   // Максимально допустим
 input ulong  MagicNumber      = 777;  // Уникальный номер для идентификации ордеров этого робота
 
 // Дополнительные параметры
-input bool   UseTimeFilter    = false; // Использовать фильтр по времени торговли
-input int    StartHour        = 0;     // Начало торговли (час, 0-23)
-input int    EndHour          = 23;    // Конец торговли (час, 0-23)
+input bool   UseTimeFilter    = true;  // Использовать фильтр по времени торговли (включен по результатам анализа)
+input int    StartHour        = 10;    // Начало торговли (час, 0-23) — прибыльные часы 10-17
+input int    EndHour          = 17;    // Конец торговли (час, 0-23) — убыточные часы исключены
 input bool   UseTrailingStop  = true; // Использовать трейлинг стоп
 input double TrailingStopATR  = 1.0;   // Множитель ATR для трейлинг стопа
 input double TrailingStepATR  = 0.5;   // Шаг трейлинг стопа в ATR
@@ -37,4 +37,6 @@ input int    PauseAfterLossHours = 24;   // Пауза в часах после 
 input bool   UseBreakEven = false;      // Использовать break-even стоп
 input double BreakEvenRR = 1.0;         // При достижении прибыли 1x от риска - в безубыток
 input bool   TradeMonday = true;        // Торговля в понедельник
+input bool   TradeTuesday = false;      // Торговля во вторник (отключен — убыточный день по анализу)
+input bool   TradeWednesday = false;    // Торговля в среду (отключен — самый убыточный день по анализу)
 input bool   TradeFriday = true;        // Торговля в пятницу

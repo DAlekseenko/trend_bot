@@ -107,7 +107,7 @@ void OnTick()
       return;
    
    // ФИЛЬТР ПО ДНЯМ НЕДЕЛИ: проверяем, разрешена ли торговля в этот день
-   if(!IsDayAllowed(TradeMonday, TradeFriday))
+   if(!IsDayAllowed(TradeMonday, TradeTuesday, TradeWednesday, TradeFriday))
       return;
 
    // Проверка спреда: если спред слишком большой - не торгуем

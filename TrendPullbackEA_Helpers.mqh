@@ -60,21 +60,29 @@ bool IsTimeToTrade(int startHour, int endHour)
 }
 
 // Функция проверки дня недели для торговли
-bool IsDayAllowed(bool tradeMonday, bool tradeFriday)
+bool IsDayAllowed(bool tradeMonday, bool tradeTuesday, bool tradeWednesday, bool tradeFriday)
 {
    MqlDateTime dt;
    TimeToStruct(TimeCurrent(), dt);
-   
+
    int dayOfWeek = dt.day_of_week; // 0 = воскресенье, 1 = понедельник, ..., 5 = пятница
-   
+
    // Проверяем понедельник (day_of_week = 1)
    if(dayOfWeek == 1 && !tradeMonday)
       return false;
-   
+
+   // Проверяем вторник (day_of_week = 2) — убыточный день по анализу
+   if(dayOfWeek == 2 && !tradeTuesday)
+      return false;
+
+   // Проверяем среду (day_of_week = 3) — самый убыточный день по анализу
+   if(dayOfWeek == 3 && !tradeWednesday)
+      return false;
+
    // Проверяем пятницу (day_of_week = 5)
    if(dayOfWeek == 5 && !tradeFriday)
       return false;
-   
+
    return true;
 }
 
